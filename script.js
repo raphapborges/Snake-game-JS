@@ -44,17 +44,43 @@ function jogo() {
     positionX += velX;
     positionY += velY;
 
-    snake.push({ x: positionX, y: positionY })
-    console.log(snake[0])
+    if (positionX < 0) {
+        positionX = grid;
+    }
+    if (positionX > grid) {
+        positionX = 0;
+    }
+    if (positionY < 0) {
+        positionY = grid;
+    }
+    if (positionY > grid) {
+        positionY = 0;
+    }
 
     ctx.fillStyle = "#00f102";
 
     for (let i = 0; i < snake.length; i++) {
-        ctx.fillRect(snake[i].x * grid, snake[i].y * grid, grid - 1, grid - 1)
-
-        
+        ctx.fillRect(snake[i].x * grid, snake[i].y * grid, grid - 1, grid - 1);
+        if (snake[i].x == positionX && snake[i].y == positionY) {
+            tam = 3;
         }
-        while (snake.length > tam){
-            snake.shift();
+
+
     }
+
+    snake.push({ x: positionX, y: positionY })
+
+    while (snake.length > tam) {
+        snake.shift();
+    }
+    ctx.fillStyle = "#F1C40F"
+    ctx.fillRect(foodX * grid, foodY * grid, grid - 1, grid - 1);
+
+    if (positionX == foodX && positionY == foodY) {
+        tam++;
+        foodX = Math.floor(Math.random() * grid);
+        foodY = Math.floor(Math.random() * grid);
+    }
+
+
 }
